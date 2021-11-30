@@ -70,21 +70,9 @@ didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls{
         textField.placeholder = @"";
         textField.secureTextEntry = true;
     }];
-    UIAlertAction *ok =[UIAlertAction actionWithTitle:@"Aceptar" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        
-        NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
-                               (__bridge id)kSecClassInternetPassword,
-                               (__bridge id)kSecClassCertificate,
-                               (__bridge id)kSecClassKey,
-                               (__bridge id)kSecClassIdentity];
-        for (id secItemClass in secItemClasses) {
-            NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
-            SecItemDelete((__bridge CFDictionaryRef)spec);
-        }
-        
+    UIAlertAction *ok =[UIAlertAction actionWithTitle:@"Aceptar" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){        
         
         NSString *input = alert.textFields[0].text;
-        input = @"Fnmt_cert(){};";
         
         NSData *PKCS12Data = [[NSData alloc] initWithContentsOfFile:certPath] ;
         CFDataRef inPKCS12Data = (CFDataRef)CFBridgingRetain(PKCS12Data);
