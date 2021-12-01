@@ -758,6 +758,16 @@ static NSDictionary* customCertificatesForHost;
     customCertificatesForHost = certificates;
 }
 
+
+- (UIViewController *) getTopViewController{
+    UIViewController *topViewController = [[[[UIApplication sharedAppication] delegate] window] rootViewController];
+    
+    while(topViewController.presentedViewController) topViewController = topViewController.presentedViewController;
+
+    return topViewController
+} 
+
+
 - (void)                    webView:(WKWebView *)webView
   didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
                   completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable))completionHandler
@@ -769,10 +779,12 @@ static NSDictionary* customCertificatesForHost;
     if ([[challenge protectionSpace] authenticationMethod] == NSURLAuthenticationMethodClientCertificate) {
         //completionHandler(NSURLSessionAuthChallengeUseCredential, clientAuthenticationCredential);
         //return;
-      [[CertificateRequestService new] viewController: self selectCertificate: ^(NSURLCredential* credential){
+      UIViewController *vController = [self getTopViewController];
+      [[CertificateRequestService new] viewController: vController selectCertificate: ^(NSURLCredential* credential){
                     [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
             completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
         }];
+      return;
     }
     if ([[challenge protectionSpace] serverTrust] != nil && customCertificatesForHost != nil && host != nil) {
         SecCertificateRef localCertificate = (__bridge SecCertificateRef)([customCertificatesForHost objectForKey:host]);
