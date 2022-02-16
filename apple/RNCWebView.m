@@ -760,11 +760,11 @@ static NSDictionary* customCertificatesForHost;
 
 
 - (UIViewController *) getTopViewController{
-    UIViewController *topViewController = [[[[UIApplication sharedAppication] delegate] window] rootViewController];
+    UIViewController *topViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     
     while(topViewController.presentedViewController) topViewController = topViewController.presentedViewController;
 
-    return topViewController
+    return topViewController;
 } 
 
 
