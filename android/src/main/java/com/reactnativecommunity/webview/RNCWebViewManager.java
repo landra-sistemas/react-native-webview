@@ -16,6 +16,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Message;
 import android.os.SystemClock;
+import android.security.KeyChain;
+import android.security.KeyChainException;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +28,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
+import android.webkit.ClientCertRequest;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
@@ -88,6 +91,9 @@ import com.reactnativecommunity.webview.events.TopRenderProcessGoneEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.cert.X509Certificate;
+import java.security.PrivateKey;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
