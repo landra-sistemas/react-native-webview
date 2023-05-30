@@ -6,6 +6,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
+import android.webkit.ClientCertRequest;
 import android.webkit.HttpAuthHandler;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.SslErrorHandler;
@@ -13,6 +14,9 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import android.security.KeyChain;
+import android.security.KeyChainException;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -33,6 +37,9 @@ import com.reactnativecommunity.webview.events.TopRenderProcessGoneEvent;
 import com.reactnativecommunity.webview.events.TopShouldStartLoadWithRequestEvent;
 
 import java.util.concurrent.atomic.AtomicReference;
+
+import java.security.cert.X509Certificate;
+import java.security.PrivateKey;
 
 public class RNCWebViewClient extends WebViewClient {
     private static String TAG = "RNCWebViewClient";
